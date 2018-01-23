@@ -849,7 +849,10 @@ def application(environ, start_response):
 
 
 if __name__ == '__main__':
-    from cherrypy import wsgiserver
+    try:
+        from cheroot.wsgi import Server as WSGIServer
+    except ImportError:
+        from cherrypy.wsgiserver import CherryPyWSGIServer as WSGIServer
 
     _parser = argparse.ArgumentParser()
     _parser.add_argument('-d', dest='debug', action='store_true',
